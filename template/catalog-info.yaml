@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.name }}-queue
+  description: AWS SQS Queue
+  labels:
+    example.com/custom: custom_label_value
+  tags:
+    - sqs-queue
+  links:
+    - url: https://admin.example-org.com
+      title: Admin Dashboard
+      icon: dashboard
+      type: admin-dashboard
+spec:
+  type: aws-queue
+  lifecycle: production
+  owner: supplier-management-team
+  system: supplier-management
