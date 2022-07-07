@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "Create SQS queue"
+Parameters:
+  QueueName:
+    Type: String
+    
+Resources:
+  SqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      KmsMasterKeyId: alias/aws/sqs
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 345600
+      QueueName: !Ref QueueName
+      ReceiveMessageWaitTimeSeconds: 0
+      VisibilityTimeout: 30
