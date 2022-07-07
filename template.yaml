@@ -1,0 +1,52 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: sqs-queue
+  title: AWS SQS Queue
+  description: Creates a AWS SQS Queue
+  labels:
+    example.com/custom: custom_label_value
+spec:
+  owner: Enablement
+  type: aws-queue
+  parameters:
+    - title: Fill in some variables
+      required:
+        - name
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the queue
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+    
+  steps:
+    - id: dispatch-actions
+      name: Dispatch Github Actions
+      action: github:actions:dispatch
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        workflowId: cloudformation.yaml
+        branchOrTagName: main
+        workflowInputs:
+          queueName: ${{ parameters.name }}
+        
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
