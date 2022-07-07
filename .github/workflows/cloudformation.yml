@@ -1,0 +1,47 @@
+name: Deploy with CloudFormation
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+    inputs:
+      queueName:
+        description: 'Queue name'     
+        required: true
+        default: 'warning'
+      
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+     
+    - name: AWS CloudFormation "Deploy CloudFormation Stack" Action for GitHub Actions
+      uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+      with:
+        name: ${{ github.event.inputs.queueName }}-queue-stack
+        template: ./sqs-queue.cf.yaml # The path or URL to the CloudFormation template
+        #capabilities: # optional, default is CAPABILITY_IAM # The comma-delimited list of stack template capabilities to acknowledge. Defaults to 'CAPABILITY_IAM'
+        #parameter-overrides: # optional # The parameters to override in the stack inputs. The list is comma-delimited, with each entry formatted as <ParameterName>=<ParameterValue>.
+        #no-fail-on-empty-changeset: # optional, default is 0 # If the CloudFormation change set is empty, do not fail. Defaults to '0' (will fail on empty change set)
+        #disable-rollback: # optional, default is 0 # Disable rollback of the stack if stack creation fails. Defaults to '0' (will rollback if stack creation fails). This input is only used for stack creation, not for stack update
+        #timeout-in-minutes: # optional # The amount of time that can pass before the stack status becomes CREATE_FAILED. This input is only used for stack creation, not for stack update
+        #notification-arns: # optional # The comma-delimited list of Amazon SNS topic ARNs to publish stack related events
+        #role-arn: # optional # The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes to create the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS CloudFormation always uses this role for all future operations on the stack. As long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege. If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack
+        #tags: # optional # Key-value pairs to associate with this stack. This input should be JSON-formatted, for example [ { "Key": "string", "Value": "string" } ]
+        #termination-protection: # optional, default is 0# Whether to enable termination protection on the specified stack. Defaults to '0' (terminated protection will be disabled) This input is only used for stack creation, not for stack update
