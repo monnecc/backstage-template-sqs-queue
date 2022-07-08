@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run a one-line script
-      run: powershell ./.github/workflows/substitute_variables.ps1 -name backstage-queue
+      run: powershell ./.github/workflows/substitute_variables.ps1 -name ${{ github.event.inputs.queueName }}-queue
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
