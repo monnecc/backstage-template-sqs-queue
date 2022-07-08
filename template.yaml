@@ -45,8 +45,8 @@ spec:
         workflowInputs:
           queueName: ${{ parameters.name }}
         
-    - id: register
-      name: Register
-      action: catalog:register
-      input:
-        catalogInfoPath: '/catalog-info.yaml'
+    #- id: register
+    #  name: Register
+    #  action: catalog:register
+    #  input:
+    #    catalogInfoUrl: '/catalog-info.yaml'
