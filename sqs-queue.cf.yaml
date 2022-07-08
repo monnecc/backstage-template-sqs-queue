@@ -7,7 +7,6 @@ Metadata:
         kind: Resource
         metadata:
           name: {name}
-          namespace: supplier-management
           description: SQS queue {name}
         spec:
           type: queue
