@@ -39,7 +39,7 @@ spec:
       action: github:actions:dispatch
       input:
         #repoUrl: ${{ parameters.repoUrl }}
-        repoUrl: github.com?owner=ConclusionFlora&repo=backstage-template-sqs-queue
+        repoUrl: github.com?owner=monnecc&repo=backstage-template-sqs-queue
         workflowId: cloudformation.yml
         branchOrTagName: main
         workflowInputs:
