@@ -21,25 +21,26 @@ spec:
           ui:autofocus: true
           ui:options:
             rows: 5
-    - title: Choose a location
-      required:
-        - repoUrl
-      properties:
-        repoUrl:
-          title: Repository Location
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
+    #- title: Choose a location
+    #  required:
+    #    - repoUrl
+    #  properties:
+    #    repoUrl:
+    #      title: Repository Location
+    #      type: string
+    #      ui:field: RepoUrlPicker
+    #      ui:options:
+    #        allowedHosts:
+    #          - github.com
     
   steps:
     - id: dispatch-actions
       name: Dispatch Github Actions
       action: github:actions:dispatch
       input:
-        repoUrl: ${{ parameters.repoUrl }}
-        workflowId: cloudformation.yaml
+        #repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: github.com?owner=ConclusionFlora&repo=backstage-template-sqs-queue
+        workflowId: cloudformation.yml
         branchOrTagName: main
         workflowInputs:
           queueName: ${{ parameters.name }}
