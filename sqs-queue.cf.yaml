@@ -6,7 +6,7 @@ Metadata:
       - apiVersion: backstage.io/v1alpha1
         kind: Resource
         metadata:
-          name: !Ref QueueName
+          name: {name}
           namespace: supplier-management
           description: SQS queue {name}
         spec:
