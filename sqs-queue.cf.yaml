@@ -1,5 +1,18 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: "Create SQS queue"
+Metadata:
+  Backstage:
+    Entities:
+      - apiVersion: backstage.io/v1alpha1
+        kind: Resource
+        metadata:
+          name: name
+          namespace: supplier-management
+          description: description
+        spec:
+          type: queue
+          owner: supplier-management-team
+          
 Parameters:
   QueueName:
     Type: String
