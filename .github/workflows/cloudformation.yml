@@ -24,6 +24,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - uses: microsoft/variable-substitution@v1 
+      with:
+        files: 'sqs-queue.cf.yaml'
+      env:
+        Name: "value1"
+        Metadata.Backstage.Entities[0].metadata.name: "value2"
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
