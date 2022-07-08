@@ -6,9 +6,9 @@ Metadata:
       - apiVersion: backstage.io/v1alpha1
         kind: Resource
         metadata:
-          name: name
+          name: {name}
           namespace: supplier-management
-          description: description
+          description: SQS queue {name}
         spec:
           type: queue
           owner: supplier-management-team
